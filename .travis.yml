@@ -1,0 +1,7 @@
+language: csharp
+sudo: true
+mono: none
+dotnet: 2.0.0
+dist: trusty
+script:
+  - ./_Build.sh
