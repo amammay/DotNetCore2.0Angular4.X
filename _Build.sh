@@ -1,5 +1,6 @@
 ﻿#!/bin/bash
 
+cd PlayGround
 
 nvm install 8.0.0
 
