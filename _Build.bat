@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set _projectName=ClickCareer
+set _projectName=PlayGround
 set _solution=%_projectName%.sln
 set _codeProject=src\%_projectName%.csproj
 set _testProject=test\%_projectName%.tests.csproj
