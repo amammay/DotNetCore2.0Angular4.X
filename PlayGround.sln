@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayGround", "PlayGround\PlayGround.csproj", "{0070B533-E52D-4EE6-B783-8EC052B30514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayGround", "PlayGround\PlayGround.csproj", "{0070B533-E52D-4EE6-B783-8EC052B30514}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayGround.Tests", "PlayGround.Tests\PlayGround.Tests.csproj", "{D1D39C83-DE33-4F97-BA74-1067B9F98892}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0070B533-E52D-4EE6-B783-8EC052B30514}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0070B533-E52D-4EE6-B783-8EC052B30514}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0070B533-E52D-4EE6-B783-8EC052B30514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D39C83-DE33-4F97-BA74-1067B9F98892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D39C83-DE33-4F97-BA74-1067B9F98892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D39C83-DE33-4F97-BA74-1067B9F98892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D39C83-DE33-4F97-BA74-1067B9F98892}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

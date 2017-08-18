@@ -9,3 +9,5 @@ nvm use 8.0.0
 npm install
 
 dotnet build
+
+dotnet test
