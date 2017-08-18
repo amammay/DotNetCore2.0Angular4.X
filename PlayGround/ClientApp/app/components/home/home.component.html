@@ -1,25 +1,28 @@
 <h1>Welcome to a .netCore playGround</h1>
 <p>The main goal of this page is to manipulate the penn state directory search results pages </p>
 
-<form>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    
+    
     <div class="form-group">
         <label for="lastName">Last Name:</label>
-        <input type="text" class="form-control" id="lastName">
+        <input type="text" class="form-control" id="lastName" name="last"
+               ngModel required #first="ngModel" >
     </div>
     <div class="form-group">
         <label for="firstName">First Name:</label>
-        <input type="text" class="form-control" id="firstName">
+        <input type="text" class="form-control" id="firstName" name="first"
+               ngModel>
     </div>
     <div class="form-group">
         <label for="userID">UserID:</label>
-        <input type="text" class="form-control" id="userID">
+        <input type="text" class="form-control" id="userID" name="userId"
+               ngModel>
     </div>
     <div class="form-group">
         <label for="e-mail">Email:</label>
-        <input type="email" class="form-control" id="e-mail">
+        <input type="email" class="form-control" id="e-mail" name="email"
+               ngModel>
     </div>
-
-
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
-
