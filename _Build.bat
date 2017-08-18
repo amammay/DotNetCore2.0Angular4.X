@@ -31,5 +31,10 @@ echo !!! Building solution !!!
 echo -------------------------
 dotnet build %_solution% -c %_config%
 
+echo -------------------------
+echo !!! Testing solution !!!
+echo -------------------------
+dotnet test %_solution% -c %_config%
+
 endlocal
 @echo on

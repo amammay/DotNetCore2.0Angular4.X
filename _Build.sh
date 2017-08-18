@@ -10,8 +10,4 @@ npm install
 
 dotnet build
 
-cd ..
-
-cd PlayGround/PlayGround.Tests
-
 dotnet test
