@@ -1,18 +1,38 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TestClassLibrary;
+using TestClassLibrary.Models;
 
 namespace PlayGround.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
+        private static readonly string[] Summaries =
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
+
+
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<PsuSearchResult>> PsuShort()
+        {
+            var psuClient = new PsuSearchClient();
+
+            var form = new SearchForm
+            {
+                Sn = "ma"
+            };
+
+            var objectResults = await psuClient.PostRetrieveShort(form);
+
+
+            return objectResults;
+        }
 
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts()
@@ -32,13 +52,7 @@ namespace PlayGround.Controllers
             public int TemperatureC { get; set; }
             public string Summary { get; set; }
 
-            public int TemperatureF
-            {
-                get
-                {
-                    return 32 + (int)(TemperatureC / 0.5556);
-                }
-            }
+            public int TemperatureF => 32 + (int) (TemperatureC / 0.5556);
         }
     }
 }
