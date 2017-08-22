@@ -6,41 +6,35 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PlayGround.Controllers
 {
-    [Route("api/PennState")]
+    [Route("api/[controller]")]
     public class PennStateController : Controller
     {
-        /// <summary>
-        /// Returns a json array 
-        /// /api/PennState/GetArray
-        /// </summary>
-        /// <returns></returns>
+
+
         [HttpGet("[action]")]
         public IEnumerable GetArray()
         {
-
-
-            return new [] {"We are", "Penn State"};
+            //example returns a basic type that is automatically serialized as json
+            return new string[] { "value2", "value3" };
         }
 
-
-        /// <summary>
-        /// Returns some json n'at
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [ActionName("GetSomeJson")]
-        public HttpResponseMessage GetSomeJson()
+        [HttpGet("[action]")]
+        public object GetSomeObject()
         {
+            //example returns an object that is automatically serialized as json
+            return new { color = "red", today = DateTime.UtcNow };
+        }
 
-            //example returns a HttpResponseMessage - the shim makes this possible
-            var resp = new HttpResponseMessage()
-            {
-                Content = new StringContent("[{\"Name\":\"ABC\"},[{\"A\":\"1\"},{\"B\":\"2\"},{\"C\":\"3\"}]]")
-            };
-            
-            resp.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-		    return resp;
+        [HttpGet]
+        public IActionResult CreateSomething()
+        {
+            return StatusCode(201); //set status code
+        }
 
+        [HttpGet("[action]")]
+        public string Greet(string id)
+        {
+            return $"Hello {id}";
         }
     }
 }
