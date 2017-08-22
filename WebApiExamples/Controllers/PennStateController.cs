@@ -10,7 +10,6 @@ namespace WebApiExamples.Controllers
     [Route("api/[controller]")]
     public class PennStateController : Controller
     {
-
         // GET api/PennState
         [HttpGet]
         public async Task<IEnumerable<PsuSearchResult>> PsuShort()
@@ -29,19 +28,17 @@ namespace WebApiExamples.Controllers
         }
 
 
-
         // POST api/PennState
+        /// <summary>
+        ///     Uses the form body to get applicable information
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns> Json object of the search result</returns>
         [HttpPost]
-        public string Post([FromBody]JObject json)
+        public async Task<IEnumerable<PsuSearchResult>> Post([FromBody] JObject json)
         {
-            
-
-            return "hello";
+            var psuClient = new PsuSearchClient();
+            return await psuClient.PostRetrieveShort(json.ToObject<SearchForm>());
         }
-
-
-
-
-
     }
 }
