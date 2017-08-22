@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using TestClassLibrary;
 using TestClassLibrary.Models;
 
@@ -10,7 +11,7 @@ namespace WebApiExamples.Controllers
     public class PennStateController : Controller
     {
 
-        // GET api/values
+        // GET api/PennState
         [HttpGet]
         public async Task<IEnumerable<PsuSearchResult>> PsuShort()
         {
@@ -29,10 +30,13 @@ namespace WebApiExamples.Controllers
 
 
 
-        // POST api/values
+        // POST api/PennState
         [HttpPost]
-        public void Post([FromBody]string value)
+        public string Post([FromBody]JObject json)
         {
+            
+
+            return "hello";
         }
 
 
