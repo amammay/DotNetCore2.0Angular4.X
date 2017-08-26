@@ -2,15 +2,14 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using TestClassLibrary;
-using TestClassLibrary.Models;
+using PsuApi;
+using PsuApi.Models;
 
-namespace WebApiExamples.Controllers
+namespace AngularNetCore2.Controllers
 {
     [Route("api/[controller]")]
     public class PennStateController : Controller
     {
-   
         // POST api/PennState
         /// <summary>
         ///     Uses the form body to get applicable information

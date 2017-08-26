@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\PsuApi.csproj" />
-    <ProjectReference Include="..\PlayGround\AngularNetCore2.csproj" />
+    <ProjectReference Include="..\PsuAngularNetCore2\AngularNetCore2.csproj" />
+    <ProjectReference Include="..\PsuApi\PsuApi.csproj" />
   </ItemGroup>
 
 </Project>

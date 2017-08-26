@@ -1,8 +1,6 @@
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PlayGround.Controllers;
 
-namespace PlayGround.Tests
+namespace PsuApi.Tests
 {
     [TestClass]
     [TestCategory("SampleDataController")]
