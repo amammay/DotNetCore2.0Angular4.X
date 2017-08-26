@@ -14,12 +14,6 @@ namespace PlayGround.Tests
         public void WeatherForecastsTest()
         {
 
-            SampleDataController testController = new SampleDataController();
-
-            var returnWeather = testController.WeatherForecasts();
-
-            Assert.IsNotNull(returnWeather);
-
 
 
 
