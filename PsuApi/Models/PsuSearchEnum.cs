@@ -1,4 +1,4 @@
-﻿namespace TestClassLibrary.Models
+﻿namespace PsuApi.Models
 {
     public enum PsuSearchEnum
     {

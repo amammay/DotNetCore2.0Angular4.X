@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
 
-cd PlayGround
+cd PsuAngularNetCore2
 
 nvm install 8.0.0
 

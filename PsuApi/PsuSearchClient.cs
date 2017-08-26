@@ -4,10 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ClassLibrary1;
 using HtmlAgilityPack;
-using TestClassLibrary.Models;
+using PsuApi.Models;
 
-namespace TestClassLibrary
+namespace PsuApi
 {
     public class PsuSearchClient : IPsuSearchClient
     {
@@ -43,7 +44,7 @@ namespace TestClassLibrary
             //Foreach row in the table Linq query on the html document, seperate our objects by the table tag
             var psuSearchResultObject = new PsuSearchResult();
             foreach (var row in from form in doc.DocumentNode.SelectNodes("//table")
-                                select new { text = form.InnerHtml })
+                select new {text = form.InnerHtml})
             {
                 //Trim the row of anything we dont need
                 var replacement = Regex.Replace(row.text, @"\t|\n|\r|amp;", "");
@@ -55,7 +56,7 @@ namespace TestClassLibrary
 
                 //Foreach row in the linqRow query to seperate the rows into objects
                 foreach (var rows in from docRow in localDoc.DocumentNode.SelectNodes("./tr")
-                                     select new { CellTexty = docRow.InnerText })
+                    select new {CellTexty = docRow.InnerText})
                 {
                     //Split the string on the : [0] is the header [1] is the content
                     var splitString = rows.CellTexty.Split(':');
