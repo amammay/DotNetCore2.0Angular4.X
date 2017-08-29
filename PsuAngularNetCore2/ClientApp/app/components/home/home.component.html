@@ -6,23 +6,46 @@
     
     <div class="form-group">
         <label for="lastName">Last Name:</label>
-        <input type="text" class="form-control" id="lastName" name="last"
-               ngModel required #first="ngModel" >
+        <input type="text" class="form-control" id="lastName" name="Sn"
+               ngModel #first="ngModel" >
     </div>
     <div class="form-group">
         <label for="firstName">First Name:</label>
-        <input type="text" class="form-control" id="firstName" name="first"
+        <input type="text" class="form-control" id="firstName" name="Cn"
                ngModel>
     </div>
     <div class="form-group">
         <label for="userID">UserID:</label>
-        <input type="text" class="form-control" id="userID" name="userId"
+        <input type="text" class="form-control" id="userID" name="Uid"
                ngModel>
     </div>
     <div class="form-group">
         <label for="e-mail">Email:</label>
-        <input type="email" class="form-control" id="e-mail" name="email"
+        <input type="email" class="form-control" id="e-mail" name="Mail"
                ngModel>
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
+
+
+<p *ngIf="!Shorty"><em>Loading...</em></p>
+
+<table class='table' *ngIf="Shorty">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Temp. (C)</th>
+        <th>Temp. (F)</th>
+        <th>Summary</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let Short of Shorty">
+        <td>{{ Short.name }}</td>
+        <td>{{ Short.email }}</td>
+        <td>{{ Short.mailId }}</td>
+        <td>{{ Short.title }}</td>
+    </tr>
+    </tbody>
+</table>
+

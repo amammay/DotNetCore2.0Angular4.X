@@ -76,27 +76,27 @@ namespace PsuApi
                             case "Title":
                                 psuSearchResultObject.Title = splitString[1];
                                 break;
-                            case "Administrative Area":
-                                psuSearchResultObject.AdminArea = splitString[1];
-                                break;
-                            case "Campus":
-                                psuSearchResultObject.Campus = splitString[1];
-                                break;
-                            case "Curriculum":
-                                psuSearchResultObject.Curriculum = splitString[1];
-                                break;
-                            case "URL":
-                                psuSearchResultObject.Url = splitString[1];
-                                break;
-                            case "Telephone Number":
-                                psuSearchResultObject.TelephoneNumber = splitString[1];
-                                break;
-                            case "Countries":
-                                psuSearchResultObject.Countries = splitString[1];
-                                break;
-                            case "Languages":
-                                psuSearchResultObject.Languages = splitString[1];
-                                break;
+                            //case "Administrative Area":
+                            //    psuSearchResultObject.AdminArea = splitString[1];
+                            //    break;
+                            //case "Campus":
+                            //    psuSearchResultObject.Campus = splitString[1];
+                            //    break;
+                            //case "Curriculum":
+                            //    psuSearchResultObject.Curriculum = splitString[1];
+                            //    break;
+                            //case "URL":
+                            //    psuSearchResultObject.Url = splitString[1];
+                            //    break;
+                            //case "Telephone Number":
+                            //    psuSearchResultObject.TelephoneNumber = splitString[1];
+                            //    break;
+                            //case "Countries":
+                            //    psuSearchResultObject.Countries = splitString[1];
+                            //    break;
+                            //case "Languages":
+                            //    psuSearchResultObject.Languages = splitString[1];
+                            //    break;
                         }
                 }
 
