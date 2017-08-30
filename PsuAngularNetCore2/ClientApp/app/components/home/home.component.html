@@ -6,23 +6,59 @@
     
     <div class="form-group">
         <label for="lastName">Last Name:</label>
-        <input type="text" class="form-control" id="lastName" name="last"
-               ngModel required #first="ngModel" >
+        <input type="text" class="form-control" id="lastName" name="Sn"
+               ngModel #first="ngModel" >
     </div>
     <div class="form-group">
-        <label for="firstName">First Name:</label>
-        <input type="text" class="form-control" id="firstName" name="first"
+        <label for="fullName">Full Name:</label>
+        <input type="text" class="form-control" id="fullName" name="Cn"
                ngModel>
     </div>
     <div class="form-group">
         <label for="userID">UserID:</label>
-        <input type="text" class="form-control" id="userID" name="userId"
+        <input type="text" class="form-control" id="userID" name="Uid"
                ngModel>
     </div>
     <div class="form-group">
         <label for="e-mail">Email:</label>
-        <input type="email" class="form-control" id="e-mail" name="email"
+        <input type="email" class="form-control" id="e-mail" name="Mail"
                ngModel>
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
+
+<p *ngIf="!Shorty"><em>Waiting for submission....</em></p>
+
+<table class='table table-condensed table-striped table-bordered' *ngIf="Shorty">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>MailId</th>
+        <th>Title</th>
+        <th>Admin Area</th>
+        <th>Campus</th>
+        <th>Curriculum</th>
+        <th>URL</th>
+        <th>Telephone Number</th>
+        <th>Countries</th>
+        <th>Languages</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let Short of Shorty">
+        <td>{{ Short.name }}</td>
+        <td>{{ Short.email }}</td>
+        <td>{{ Short.mailId }}</td>
+        <td>{{ Short.title }}</td>
+        <td>{{ Short.adminArea }}</td>
+        <td>{{ Short.campus }}</td>
+        <td>{{ Short.curriculum }}</td>
+        <td>{{ Short.url }}</td>
+        <td>{{ Short.telephoneNumber }}</td>
+        <td>{{ Short.countries }}</td>
+        <td>{{ Short.languages }}</td>
+    </tr>
+    </tbody>
+</table>
+
