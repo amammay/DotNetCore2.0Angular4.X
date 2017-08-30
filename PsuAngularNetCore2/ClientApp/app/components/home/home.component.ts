@@ -16,7 +16,7 @@ export class HomeComponent {
         console.log(f.value);  // { first: '', last: '' }
         let thingy = { "Cn": f.value.Cn, "Sn": f.value.Sn, "Uid": f.value.Uid, "Mail": f.value.Mail };
 
-        this.http.post("http://localhost:49877/api/PennState/", thingy).subscribe(result => {
+        this.http.post("/api/PennState/", thingy).subscribe(result => {
             this.Shorty = result.json() as ShortResult;
         }, error => console.error(error));
     
@@ -28,4 +28,11 @@ interface ShortResult {
     email: string;
     mailId: string;
     title: string;
+    adminArea: string;
+    campus: string;
+    curriculum: string;
+    url: string;
+    telephoneNumber: string;
+    countries: string;
+    languages: string;
 }
