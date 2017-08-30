@@ -27,7 +27,7 @@ namespace PsuApi.Tests
 
             var responseMessage = new Func<HttpResponseMessage>(() => new HttpResponseMessage(HttpStatusCode.OK){Content = new StringContent(content)});
 
-            var verification = new Action<HttpRequestMessage, CancellationToken>((message, token) =>
+            var dummy = new Action<HttpRequestMessage, CancellationToken>((message, token) =>
             {
                 Assert.AreEqual(HttpMethod.Post, message.Method);
 
@@ -36,10 +36,6 @@ namespace PsuApi.Tests
             var response = localPennStateController.Post(json);
 
             var firstResponse = response.Result.First();
-
-
-
-
 
             Assert.IsNotNull(firstResponse);
             
