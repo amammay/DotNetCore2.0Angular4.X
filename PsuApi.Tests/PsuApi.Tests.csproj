@@ -23,4 +23,16 @@
     <ProjectReference Include="..\PsuApi\PsuApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="PennStateControllerTest.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SampleData\ShortReturn.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

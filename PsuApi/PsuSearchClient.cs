@@ -101,6 +101,8 @@ namespace PsuApi
                 }
 
                 resultCollection.Add(psuSearchResultObject);
+
+                
             }
 
             return resultCollection;
