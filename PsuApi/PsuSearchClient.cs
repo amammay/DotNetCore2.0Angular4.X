@@ -42,10 +42,11 @@ namespace PsuApi
             doc.LoadHtml(responseContent);
 
             //Foreach row in the table Linq query on the html document, seperate our objects by the table tag
-            
             foreach (var row in from form in doc.DocumentNode.SelectNodes("//table")
                 select new {text = form.InnerHtml})
             {
+                var psuSearchResultObject = new PsuSearchResult();
+
                 //Trim the row of anything we dont need
                 var replacement = Regex.Replace(row.text, @"\t|\n|\r|amp;", "");
 
@@ -53,7 +54,7 @@ namespace PsuApi
                 var localDoc = new HtmlDocument();
                 localDoc.LoadHtml(replacement);
 
-                var psuSearchResultObject = new PsuSearchResult();
+                 
                 //Foreach row in the linqRow query to seperate the rows into objects
                 foreach (var rows in from docRow in localDoc.DocumentNode.SelectNodes("./tr")
                     select new {CellTexty = docRow.InnerText})
@@ -86,7 +87,7 @@ namespace PsuApi
                                 psuSearchResultObject.Curriculum = splitString[1];
                                 break;
                             case "URL":
-                                psuSearchResultObject.Url = splitString[1];
+                                psuSearchResultObject.Url = splitString[1] + splitString[2];
                                 break;
                             case "Telephone Number":
                                 psuSearchResultObject.TelephoneNumber = splitString[1];

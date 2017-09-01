@@ -38,10 +38,7 @@ namespace PsuApi.Tests
             var firstResponse = response.Result.First();
 
             Assert.IsNotNull(firstResponse);
-            
-
-
-
+         
             
 
         }
