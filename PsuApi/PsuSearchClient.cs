@@ -87,7 +87,7 @@ namespace PsuApi
                                 psuSearchResultObject.Curriculum = splitString[1];
                                 break;
                             case "URL":
-                                psuSearchResultObject.Url = splitString[1] + splitString[2];
+                                psuSearchResultObject.Url = splitString[1] +":" + splitString[2];
                                 break;
                             case "Telephone Number":
                                 psuSearchResultObject.TelephoneNumber = splitString[1];
