@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
@@ -14,6 +15,7 @@ namespace PsuApi
     {
         private HttpClient HttpClient { get; set; }
 
+
         /// <summary>
         ///     Retrieve Short information about person
         /// </summary>
@@ -25,12 +27,17 @@ namespace PsuApi
             HttpClient = new HttpClient();
 
             HttpResponseMessage respone;
+
+            int intEnum = (int) searchForm.Full;
+
+
             using (var formContent = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("sn", searchForm.Sn),
                 new KeyValuePair<string, string>("cn", searchForm.Cn),
                 new KeyValuePair<string, string>("uid", searchForm.Uid),
-                new KeyValuePair<string, string>("mail", searchForm.Mail)
+                new KeyValuePair<string, string>("mail", searchForm.Mail),
+                new KeyValuePair<string,string>("full", intEnum.ToString())
             }))
             {
                 respone = await HttpClient.PostAsync(Constants.BaseApiUrl, formContent);
@@ -54,7 +61,7 @@ namespace PsuApi
                 var localDoc = new HtmlDocument();
                 localDoc.LoadHtml(replacement);
 
-                 
+
                 //Foreach row in the linqRow query to seperate the rows into objects
                 foreach (var rows in from docRow in localDoc.DocumentNode.SelectNodes("./tr")
                     select new {CellTexty = docRow.InnerText})
@@ -87,27 +94,20 @@ namespace PsuApi
                                 psuSearchResultObject.Curriculum = splitString[1];
                                 break;
                             case "URL":
-                                psuSearchResultObject.Url = splitString[1] +":" + splitString[2];
+                                psuSearchResultObject.Url = splitString[1] + ":" + splitString[2];
                                 break;
                             case "Telephone Number":
                                 psuSearchResultObject.TelephoneNumber = splitString[1];
-                                break;
-                            case "Countries":
-                                psuSearchResultObject.Countries = splitString[1];
-                                break;
-                            case "Languages":
-                                psuSearchResultObject.Languages = splitString[1];
                                 break;
                         }
                 }
 
                 resultCollection.Add(psuSearchResultObject);
-                
-
-
             }
 
             return resultCollection;
         }
     }
+
+
 }

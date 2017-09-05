@@ -14,9 +14,9 @@ export class HomeComponent {
 
     onSubmit(f: NgForm) {
         console.log(f.value);  // { first: '', last: '' }
-        let thingy = { "Cn": f.value.Cn, "Sn": f.value.Sn, "Uid": f.value.Uid, "Mail": f.value.Mail };
+        let postValue = { "Cn": f.value.Cn, "Sn": f.value.Sn, "Uid": f.value.Uid, "Mail": f.value.Mail, "full": f.value.full };
 
-        this.http.post("/api/PennState/", thingy).subscribe(result => {
+        this.http.post("/api/PennState/", postValue).subscribe(result => {
             this.Shorty = result.json() as ShortResult;
         }, error => console.error(error));
     
