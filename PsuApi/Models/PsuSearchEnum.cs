@@ -3,7 +3,7 @@
     public enum PsuSearchEnum
     {
         Short,
-        Full
+        Long
     }
 
 }
