@@ -20,9 +20,19 @@ namespace AngularNetCore2.Controllers
         public async Task<IEnumerable<PsuSearchResult>> Post([FromBody] JObject json)
         {
             var psuClient = new PsuSearchClient();
-            var temp = json.ToObject<SearchForm>();
+            var searchObject = json.ToObject<SearchForm>();
 
-            return await psuClient.PostRetrieveShort(json.ToObject<SearchForm>());
+            switch (searchObject.Full)
+            {
+                case PsuSearchEnum.Short:
+                    return await psuClient.PostRetrieveShort(searchObject);
+                //case PsuSearchEnum.Long:
+                //    return await psuClient.PostRetrieveLong(searchObject);
+                default:
+                    return null;
+
+            }
+
         }
     }
 }

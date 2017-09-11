@@ -17,6 +17,40 @@ namespace PsuApi
 
 
         /// <summary>
+        /// Helper method for getting content from PennState ldap . 
+        /// </summary>
+        /// <param name="searchObject"></param>
+        /// <returns> Returns string of content</returns>
+        private async Task<string> ParseContent(SearchForm searchObject)
+        {
+            HttpClient = new HttpClient();
+            int intEnum = (int)searchObject.Full;
+            HttpResponseMessage respone;
+
+            using (var formContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("sn", searchObject.Sn),
+                new KeyValuePair<string, string>("cn", searchObject.Cn),
+                new KeyValuePair<string, string>("uid", searchObject.Uid),
+                new KeyValuePair<string, string>("mail", searchObject.Mail),
+                new KeyValuePair<string,string>("full", intEnum.ToString())
+            }))
+            {
+                respone = await HttpClient.PostAsync(Constants.BaseApiUrl, formContent);
+            }
+
+            return await respone.Content.ReadAsStringAsync();
+
+
+        }
+
+
+        //public async Task<IEnumerable<PsuSearchResult>> PostRetrieveLong(SearchForm searchFrom)
+        //{
+
+        //}
+
+        /// <summary>
         ///     Retrieve Short information about person
         /// </summary>
         /// <param name="searchForm"></param>
@@ -26,27 +60,11 @@ namespace PsuApi
             var resultCollection = new ObservableCollection<PsuSearchResult>();
             HttpClient = new HttpClient();
 
-            HttpResponseMessage respone;
-
-            int intEnum = (int) searchForm.Full;
-
-
-            using (var formContent = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("sn", searchForm.Sn),
-                new KeyValuePair<string, string>("cn", searchForm.Cn),
-                new KeyValuePair<string, string>("uid", searchForm.Uid),
-                new KeyValuePair<string, string>("mail", searchForm.Mail),
-                new KeyValuePair<string,string>("full", intEnum.ToString())
-            }))
-            {
-                respone = await HttpClient.PostAsync(Constants.BaseApiUrl, formContent);
-            }
-            var responseContent = await respone.Content.ReadAsStringAsync();
+            var responseContent = ParseContent(searchForm);
 
             //Capute our respone to a html document
             var doc = new HtmlDocument();
-            doc.LoadHtml(responseContent);
+            doc.LoadHtml(await responseContent);
 
             //Foreach row in the table Linq query on the html document, seperate our objects by the table tag
             foreach (var row in from form in doc.DocumentNode.SelectNodes("//table")
