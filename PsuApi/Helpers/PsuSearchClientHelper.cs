@@ -3,53 +3,27 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using ClassLibrary1;
 using HtmlAgilityPack;
-using PsuApi.Helpers;
 using PsuApi.Models;
 
-namespace PsuApi
+namespace PsuApi.Helpers
 {
-    public class PsuSearchClient : IPsuSearchClient
+    internal static class PsuSearchClientHelper
     {
-        private HttpClient HttpClient { get; set; }
 
-        public async Task<IEnumerable<PsuSearchResult>> PostRetrieveLong(SearchForm searchFrom)
+        internal static ObservableCollection<PsuSearchResult> ParsePsuSearchResult(HtmlDocument htmlDocument, PsuSearchEnum searchEnum)
         {
-            HttpClient = new HttpClient();
 
-            var responseContent = ParseContent(searchFrom);
 
-            //Capute our respone to a html document
-            var doc = new HtmlDocument();
-            doc.LoadHtml(await responseContent);
-
-            return PsuSearchClientHelper.ParsePsuSearchResult(doc, searchFrom.Full);
-        }
-
-        /// <summary>
-        ///     Retrieve Short information about person
-        /// </summary>
-        /// <param name="searchForm"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<PsuSearchResult>> PostRetrieveShort(SearchForm searchForm)
-        {
             var resultCollection = new ObservableCollection<PsuSearchResult>();
-            HttpClient = new HttpClient();
-
-            var responseContent = ParseContent(searchForm);
-
-            //Capute our respone to a html document
-            var doc = new HtmlDocument();
-            doc.LoadHtml(await responseContent);
 
             //Foreach row in the table Linq query on the html document, seperate our objects by the table tag
-            foreach (var row in from form in doc.DocumentNode.SelectNodes("//table")
-                select new {text = form.InnerHtml})
+            foreach (var row in from form in htmlDocument.DocumentNode.SelectNodes("//table")
+                                select new { text = form.InnerHtml })
             {
-                var psuSearchResultObject = new PsuSearchResult();
+                var psuSearchResultObject = new PsuSearchResult {Search = searchEnum};
 
                 //Trim the row of anything we dont need
                 var replacement = Regex.Replace(row.text, @"\t|\n|\r|amp;", "");
@@ -61,10 +35,10 @@ namespace PsuApi
 
                 //Foreach row in the linqRow query to seperate the rows into objects
                 foreach (var rows in from docRow in localDoc.DocumentNode.SelectNodes("./tr")
-                    select new {CellTexty = docRow.InnerText})
+                                     select new { CellText = docRow.InnerText })
                 {
                     //Split the string on the : [0] is the header [1] is the content
-                    var splitString = rows.CellTexty.Split(':');
+                    var splitString = rows.CellText.Split(':');
 
                     if (splitString != null)
                         switch (splitString[0])
@@ -96,6 +70,25 @@ namespace PsuApi
                             case "Telephone Number":
                                 psuSearchResultObject.TelephoneNumber = splitString[1];
                                 break;
+                            case "Common Name":
+                                psuSearchResultObject.CommonName = splitString[1];
+                                break;
+                            case "Last Name":
+                                psuSearchResultObject.LastName = splitString[1];
+                                break;
+                            case "Given Name":
+                                psuSearchResultObject.GivenName = splitString[1];
+                                break;
+                            case "Mailbox":
+                                psuSearchResultObject.Mailbox = splitString[1];
+                                break;
+                            case "EduPerson Principal Name":
+                                psuSearchResultObject.EduPersonPrincipalName = splitString[1];
+                                break;
+                            case "EduPerson Primary Affiliation":
+                                psuSearchResultObject.EduPersonPrimaryAffiliation = splitString[1];
+                                break;
+
                         }
                 }
 
@@ -106,32 +99,5 @@ namespace PsuApi
         }
 
 
-        /// <summary>
-        /// Helper method for getting content from PennState ldap . 
-        /// </summary>
-        /// <param name="searchObject"></param>
-        /// <returns> Returns string of content</returns>
-        private async Task<string> ParseContent(SearchForm searchObject)
-        {
-            HttpClient = new HttpClient();
-            int intEnum = (int)searchObject.Full;
-            HttpResponseMessage respone;
-
-            using (var formContent = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("sn", searchObject.Sn),
-                new KeyValuePair<string, string>("cn", searchObject.Cn),
-                new KeyValuePair<string, string>("uid", searchObject.Uid),
-                new KeyValuePair<string, string>("mail", searchObject.Mail),
-                new KeyValuePair<string,string>("full", intEnum.ToString())
-            }))
-            {
-                respone = await HttpClient.PostAsync(Constants.BaseApiUrl, formContent);
-            }
-            return await respone.Content.ReadAsStringAsync();
-        }
-
     }
-
-
 }

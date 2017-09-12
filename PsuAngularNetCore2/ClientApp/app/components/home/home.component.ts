@@ -8,7 +8,8 @@ import { Http } from '@angular/http';
 })
 export class HomeComponent {
 
-    public Shorty: ShortResult;
+    public TableValues: ShortResult;
+    public Columns: any;
 
     constructor(private http: Http) {}
 
@@ -17,7 +18,7 @@ export class HomeComponent {
         let postValue = { "Cn": f.value.Cn, "Sn": f.value.Sn, "Uid": f.value.Uid, "Mail": f.value.Mail, "full": f.value.full };
 
         this.http.post("/api/PennState/", postValue).subscribe(result => {
-            this.Shorty = result.json() as ShortResult;
+            this.TableValues = result.json() as ShortResult;
         }, error => console.error(error));
     
     }

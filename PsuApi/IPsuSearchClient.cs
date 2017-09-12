@@ -2,10 +2,12 @@
 using System.Threading.Tasks;
 using PsuApi.Models;
 
-namespace ClassLibrary1
+namespace PsuApi
 {
     public interface IPsuSearchClient
     {
         Task<IEnumerable<PsuSearchResult>> PostRetrieveShort(SearchForm searchForm);
+        Task<IEnumerable<PsuSearchResult>> PostRetrieveLong(SearchForm searchForm);
+
     }
 }

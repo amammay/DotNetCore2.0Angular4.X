@@ -36,7 +36,7 @@
 
 <p *ngIf="!Shorty"><em>Waiting for submission....</em></p>
 
-<table class='table table-condensed table-striped table-bordered' *ngIf="Shorty">
+<!--<table class='table table-condensed table-striped table-bordered' *ngIf="Shorty">
     <thead>
     <tr>
         <th>Name</th>
@@ -67,5 +67,27 @@
         <td>{{ Short.languages }}</td>
     </tr>
     </tbody>
-</table>
+</table>-->
 
+<table class='table table-condensed table-striped table-bordered' *ngIf="TableValues">
+    <thead>
+    <tr>
+        <th *ngFor="let column of Columns" >{{column}}</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let tableValue of TableValues">
+            <td>{{ tableValue.name }}</td>
+            <td>{{ tableValue.email }}</td>
+            <td>{{ tableValue.mailId }}</td>
+            <td>{{ tableValue.title }}</td>
+            <td>{{ tableValue.adminArea }}</td>
+            <td>{{ tableValue.campus }}</td>
+            <td>{{ tableValue.curriculum }}</td>
+            <td>{{ tableValue.url }}</td>
+            <td>{{ tableValue.telephoneNumber }}</td>
+            <td>{{ tableValue.countries }}</td>
+            <td>{{ tableValue.languages }}</td>
+        </tr>
+    </tbody>
+</table>

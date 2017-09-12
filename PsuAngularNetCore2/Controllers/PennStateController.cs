@@ -26,8 +26,8 @@ namespace AngularNetCore2.Controllers
             {
                 case PsuSearchEnum.Short:
                     return await psuClient.PostRetrieveShort(searchObject);
-                //case PsuSearchEnum.Long:
-                //    return await psuClient.PostRetrieveLong(searchObject);
+                case PsuSearchEnum.Long:
+                    return await psuClient.PostRetrieveLong(searchObject);
                 default:
                     return null;
 
