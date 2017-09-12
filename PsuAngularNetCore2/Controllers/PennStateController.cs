@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -34,5 +35,15 @@ namespace AngularNetCore2.Controllers
             }
 
         }
+
+
+        [HttpGet]
+        public IEnumerable<string> Columns()
+        {
+            return new PsuSearchResult().ToEnumerableString();
+        }
+
+
+
     }
 }
