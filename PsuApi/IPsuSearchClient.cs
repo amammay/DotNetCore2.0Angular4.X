@@ -6,8 +6,7 @@ namespace PsuApi
 {
     public interface IPsuSearchClient
     {
-        Task<IEnumerable<PsuSearchResult>> PostRetrieveShort(SearchForm searchForm);
-        Task<IEnumerable<PsuSearchResult>> PostRetrieveLong(SearchForm searchForm);
+        Task<IEnumerable<PsuSearchResult>> PostRetrieveSearch(SearchForm searchForm);
 
     }
 }

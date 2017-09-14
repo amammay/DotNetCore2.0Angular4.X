@@ -16,7 +16,7 @@ namespace PsuApi
     {
         private HttpClient HttpClient { get; set; }
 
-        public async Task<IEnumerable<PsuSearchResult>> PostRetrieveLong(SearchForm searchFrom)
+        public async Task<IEnumerable<PsuSearchResult>> PostRetrieveSearch(SearchForm searchFrom)
         {
             HttpClient = new HttpClient();
 
@@ -28,84 +28,7 @@ namespace PsuApi
 
             return PsuSearchClientHelper.ParsePsuSearchResult(doc, searchFrom.Full);
         }
-
-        /// <summary>
-        ///     Retrieve Short information about person
-        /// </summary>
-        /// <param name="searchForm"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<PsuSearchResult>> PostRetrieveShort(SearchForm searchForm)
-        {
-            var resultCollection = new ObservableCollection<PsuSearchResult>();
-            HttpClient = new HttpClient();
-
-            var responseContent = ParseContent(searchForm);
-
-            //Capute our respone to a html document
-            var doc = new HtmlDocument();
-            doc.LoadHtml(await responseContent);
-
-            //Foreach row in the table Linq query on the html document, seperate our objects by the table tag
-            foreach (var row in from form in doc.DocumentNode.SelectNodes("//table")
-                select new {text = form.InnerHtml})
-            {
-                var psuSearchResultObject = new PsuSearchResult();
-
-                //Trim the row of anything we dont need
-                var replacement = Regex.Replace(row.text, @"\t|\n|\r|amp;", "");
-
-                //load our trimmed down string into a doc loader
-                var localDoc = new HtmlDocument();
-                localDoc.LoadHtml(replacement);
-
-
-                //Foreach row in the linqRow query to seperate the rows into objects
-                foreach (var rows in from docRow in localDoc.DocumentNode.SelectNodes("./tr")
-                    select new {CellTexty = docRow.InnerText})
-                {
-                    //Split the string on the : [0] is the header [1] is the content
-                    var splitString = rows.CellTexty.Split(':');
-
-                    if (splitString != null)
-                        switch (splitString[0])
-                        {
-                            case "Name":
-                                psuSearchResultObject.Name = splitString[1];
-                                break;
-                            case "E-mail":
-                                psuSearchResultObject.Email = splitString[1];
-                                break;
-                            case "Mail ID":
-                                psuSearchResultObject.MailId = splitString[1];
-                                break;
-                            case "Title":
-                                psuSearchResultObject.Title = splitString[1];
-                                break;
-                            case "Administrative Area":
-                                psuSearchResultObject.AdminArea = splitString[1];
-                                break;
-                            case "Campus":
-                                psuSearchResultObject.Campus = splitString[1];
-                                break;
-                            case "Curriculum":
-                                psuSearchResultObject.Curriculum = splitString[1];
-                                break;
-                            case "URL":
-                                psuSearchResultObject.Url = splitString[1] + ":" + splitString[2];
-                                break;
-                            case "Telephone Number":
-                                psuSearchResultObject.TelephoneNumber = splitString[1];
-                                break;
-                        }
-                }
-
-                resultCollection.Add(psuSearchResultObject);
-            }
-
-            return resultCollection;
-        }
-
-
+        
         /// <summary>
         /// Helper method for getting content from PennState ldap . 
         /// </summary>

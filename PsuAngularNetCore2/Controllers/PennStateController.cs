@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -23,17 +24,31 @@ namespace AngularNetCore2.Controllers
             var psuClient = new PsuSearchClient();
             var searchObject = json.ToObject<SearchForm>();
 
-            switch (searchObject.Full)
-            {
-                case PsuSearchEnum.Short:
-                    return await psuClient.PostRetrieveShort(searchObject);
-                case PsuSearchEnum.Long:
-                    return await psuClient.PostRetrieveLong(searchObject);
-                default:
-                    return null;
+            var returnObjects = await psuClient.PostRetrieveSearch(searchObject);
 
+            List<string> returnStringObj = new List<string>();
+
+
+            //Checks to see if object properties are null, if they put them in the list
+            //TODO comapare evertyhing in the list and see if everything is null
+            foreach (var psuSearchResult in returnObjects)
+            {
+                foreach (var property in psuSearchResult.GetType().GetProperties()) {
+                    if (property.PropertyType == typeof(string))
+                    {
+                        string value = (string) property.GetValue(psuSearchResult);
+                        
+                       
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            returnStringObj.Add(property.Name);
+                        }
+                    }
+                }
             }
 
+
+            return await psuClient.PostRetrieveSearch(searchObject);
         }
 
 
@@ -42,8 +57,5 @@ namespace AngularNetCore2.Controllers
         {
             return new PsuSearchResult().ToEnumerableString();
         }
-
-
-
     }
 }
