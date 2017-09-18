@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ClassLibrary1;
 using HtmlAgilityPack;
@@ -16,11 +12,16 @@ namespace PsuApi
     {
         private HttpClient HttpClient { get; set; }
 
+        /// <summary>
+        /// Method for using Penn State LDAP 
+        /// </summary>
+        /// <param name="searchFrom"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<PsuSearchResult>> PostRetrieveSearch(SearchForm searchFrom)
         {
             HttpClient = new HttpClient();
 
-            var responseContent = ParseContent(searchFrom);
+            var responseContent = RequestSender(searchFrom);
 
             //Capute our respone to a html document
             var doc = new HtmlDocument();
@@ -34,7 +35,7 @@ namespace PsuApi
         /// </summary>
         /// <param name="searchObject"></param>
         /// <returns> Returns string of content</returns>
-        private async Task<string> ParseContent(SearchForm searchObject)
+        private async Task<string> RequestSender(SearchForm searchObject)
         {
             HttpClient = new HttpClient();
             int intEnum = (int)searchObject.Full;
